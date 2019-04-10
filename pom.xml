@@ -11,7 +11,7 @@
     <modules>
         <module>hdfs</module>
         <module>hive</module>
-        <module>hbase</module>
+        <module>zookeeper</module>
         <module>hbase_demo</module>
         <module>spark</module>
     </modules>
