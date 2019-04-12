@@ -8,7 +8,8 @@ import java.util.List;
 public class ListGroup extends ConnectionWatcher {
 
     public void list(String groupName)throws Exception{
-        String path="/"+groupName;
+        //String path="/"+groupName;
+        String path="/";
         List<String> children=zooKeeper.getChildren(path,false);
         children.forEach(s -> System.out.println(s));
     }

@@ -109,4 +109,15 @@ public class Test implements Serializable {
         }
     }
 
+
+    @org.junit.Test
+    public void hashCode2(){
+
+        String a="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww";
+        String b="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeeeeeesfffffffffffffffffffffffffffffffffffffff";
+        System.out.println(a.hashCode());
+        System.out.println(b.hashCode());
+
+    }
+
 }

@@ -40,6 +40,7 @@ public class MainTest implements Serializable {
         JavaPairRDD<ImmutableBytesWritable, Result> javaPairRdd=sc.newAPIHadoopRDD(hbaseConf, TableInputFormat.class,ImmutableBytesWritable.class, Result.class);
         javaPairRdd.foreach(new VoidImple());
         javaPairRdd.saveAsTextFile("C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\liu\\spark18");
+
     }
 
 
