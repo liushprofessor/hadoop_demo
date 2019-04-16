@@ -1,3 +1,6 @@
+import stream.liu.ProducerUser;
+import stream.liu.domain.User;
+
 /**
  * @author Liush
  * @description
@@ -9,15 +12,27 @@ public class Test {
     public void producer()throws Exception{
         Producer producer=new Producer();
         producer.init("node1:9092,node1:9093,node1:9094");
-        producer.send("my-replicated-topic3","XXXXXX");
+        producer.send("user_in","liu","qqq");
     }
+
+    @org.junit.Test
+    public void producerUser()throws Exception{
+        ProducerUser producerUser=new ProducerUser();
+        producerUser.init("node1:9092,node1:9093,node1:9094");
+        User user=new User();
+        user.setUserName("kkkkkk");
+        user.setView("sss");
+        producerUser.send("user_in3","kkkkk",user);
+    }
+
+
 
 
     @org.junit.Test
     public void consumer(){
         Consumer consumer=new Consumer();
         consumer.init("node1:9092,node1:9093,node1:9094","liu");
-        consumer.receive("my-replicated-topic3");
+        consumer.receive2("user_out");
     }
 
 }

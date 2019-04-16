@@ -28,10 +28,10 @@ public class Producer {
         }
 
 
-        public void send(String topicName,String value)throws Exception{
+        public void send(String topicName,String key,String value)throws Exception{
             // ProducerRecord(String topic, Integer partition, K key, V value)
             // 上述方法可以选择将数据发送的分区
-            RecordMetadata recordMetadata =producer.send(new ProducerRecord<>(topicName,value)).get();
+            RecordMetadata recordMetadata =producer.send(new ProducerRecord<>(topicName,key,value)).get();
             System.out.println("分区是 "+recordMetadata.partition());
             System.out.println("topic是 "+recordMetadata.topic());
         }
