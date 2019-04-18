@@ -25,7 +25,7 @@ public class UserMain {
 
     public static void main(String[] args)throws Exception {
         Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "user_aggregate2140");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "user_aggregate2143");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "node1:9092");
         //props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
         //为什么在kafka在流中要用Serdes包装序列化和反序列化，因为窗口和聚合需要将聚合后的数据重新写入到kafka，
@@ -37,11 +37,11 @@ public class UserMain {
         // setting offset reset to earliest so that we can re-run the demo code with the same pre-loaded data
         // Note: To re-run the demo, you need to use the offset reset tool:
         // https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Streams+Application+Reset+Tool
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
+        //props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         //UserState userState3=new UserState();
         StreamsBuilder builder=new StreamsBuilder();
-        KStream<String,User> source=builder.stream("user_in3");
+        KStream<String,User> source=builder.stream("user_in4");
         /*KStream<String ,Long> kStream=source.
                 groupByKey()
                 .count().toStream().map(new KeyValueMapper<String, Long, KeyValue<? extends String, ? extends Long>>() {
@@ -52,7 +52,7 @@ public class UserMain {
                 return new KeyValue<>(s,aLong);
             }
         });*/
-        KStream<String ,Long> kStream=source.
+       /* KStream<String ,Long> kStream=source.
                 groupBy(new KeyValueMapper<String, User, String>() {
 
                     @Override
@@ -62,30 +62,24 @@ public class UserMain {
                         return key;
                     }
                 })
-                .count().toStream();
+                .count().toStream();*/
 
 
-
-        /*KStream<String ,UserState> kStream=source.
-                groupByKey().windowedBy(TimeWindows.of(1000).advanceBy(1000)).
-                *//*reduce((user, v1) -> {
-                    System.out.println(user.getView());
-                    System.out.println(v1.getView());
-                    User userIn=new User();
-                    userIn.setView(user.getView()+v1.getView());
-                    return userIn;})*//*
-                aggregate(()->new UserState(),
+        UserState userState=new UserState();
+        KStream<String ,UserState> kStream=source.
+                groupByKey().windowedBy(TimeWindows.of(20000).advanceBy(5000)).
+                aggregate(()->userState,
                         (s, user, userState1) -> userState1.addViewCount(user),
                         //指明store保存的中间值的序列化实现
                         Materialized.<String, UserState, WindowStore<Bytes, byte[]>>as("www4").withValueSerde(new UserStateSerdes())
                         .withKeySerde(Serdes.String())
-                ).toStream().map((stringWindowed, userState) ->{
+                ).toStream().map((stringWindowed, userState2) ->{
                     System.out.println("-------------------");
                     System.out.println(stringWindowed.key());
                     System.out.println(userState.getViewCount());
-                    return new KeyValue<>(stringWindowed.key(),userState);});*/
+                    return new KeyValue<>(stringWindowed.key(),userState2);});
 
-        kStream.to("user_out3",Produced.with(Serdes.String(), Serdes.Long()));
+        kStream.to("user_out4",Produced.with(Serdes.String(), new UserStateSerdes()));
 
 
 
@@ -94,7 +88,7 @@ public class UserMain {
         KafkaStreams streams = new KafkaStreams(topology, props);
 
 
-        streams.cleanUp();
+       // streams.cleanUp();
 
         streams.start();
 

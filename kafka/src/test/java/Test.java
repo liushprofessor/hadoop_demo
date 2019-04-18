@@ -22,7 +22,7 @@ public class Test {
         User user=new User();
         user.setUserName("kkkkkk");
         user.setView("sss");
-        producerUser.send("user_in3","kkkkk",user);
+        producerUser.send("user_in4","kkkkk",user);
     }
 
 

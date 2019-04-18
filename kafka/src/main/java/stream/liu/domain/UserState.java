@@ -22,8 +22,8 @@ public class UserState {
     public UserState addViewCount(User user){
         /*System.out.println(user.getUserName());
         System.out.println(user.getView());*/
-        System.out.println(viewCount);
-        System.out.println("user________"+user);
+        //System.out.println(viewCount);
+        //System.out.println("user________"+user);
         if(viewCount!=null) {
             viewCount += 1;
         }else {

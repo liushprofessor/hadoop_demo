@@ -22,6 +22,6 @@ public class UserStateSerdes  extends Serdes.WrapperSerde<UserState> {
 
 
     public UserStateSerdes() {
-        super(new JsonSerializer<UserState>(), new JsonDeserializer<UserState>(UserState.class));
+        super(new UserStateJsonSerializer(), new UserStateJsonDeserializer());
     }
 }

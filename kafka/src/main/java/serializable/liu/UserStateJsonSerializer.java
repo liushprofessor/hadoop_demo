@@ -1,18 +1,18 @@
 package serializable.liu;
 
 import com.google.gson.Gson;
-import org.apache.kafka.common.serialization.Deserializer;
-import stream.liu.domain.User;
+import org.apache.kafka.common.serialization.Serializer;
 import stream.liu.domain.UserState;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
 /**
  * @author Liush
  * @description
- * @date 2019/4/16 0016 10:03
+ * @date 2019/4/18 0018 10:04
  **/
-public class UserStateJsonDeserializer implements Deserializer<UserState> {
+public class UserStateJsonSerializer  implements Serializer<UserState>{
 
 
     private Gson gson=new Gson();
@@ -23,8 +23,8 @@ public class UserStateJsonDeserializer implements Deserializer<UserState> {
     }
 
     @Override
-    public UserState deserialize(String s, byte[] bytes) {
-        return gson.fromJson(new String(bytes),UserState.class);
+    public byte[] serialize(String s, UserState userState) {
+        return gson.toJson(userState).getBytes(Charset.forName("UTF-8"));
     }
 
     @Override
