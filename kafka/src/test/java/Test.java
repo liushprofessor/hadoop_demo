@@ -1,3 +1,6 @@
+import stream.join.UserInfo;
+import stream.join.UserView;
+import stream.join.ViewInfo;
 import stream.liu.ProducerUser;
 import stream.liu.domain.User;
 
@@ -24,6 +27,32 @@ public class Test {
         user.setView("sss");
         producerUser.send("user_in4","kkkkk",user);
     }
+
+
+    @org.junit.Test
+    public void producerUserInfo()throws Exception{
+
+        ProducerUser producerUser=new ProducerUser();
+        producerUser.infoInit("node1:9092");
+        UserInfo userInfo=new UserInfo();
+        userInfo.setUserID("1");
+        userInfo.setUserName("周润发");
+        producerUser.send("userInfo","1",userInfo);
+
+    }
+
+    @org.junit.Test
+    public void producerViewInfo()throws Exception{
+        ProducerUser producerUser=new ProducerUser();
+        producerUser.infoInit("node1:9092");
+        ViewInfo viewInfo=new ViewInfo();
+        viewInfo.setPageName("百度");
+        viewInfo.setUrl("www.baidu.com");
+        producerUser.send("userView","1",viewInfo);
+
+    }
+
+
 
 
 

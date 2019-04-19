@@ -9,7 +9,7 @@ public class MainTest {
 
         Consumer consumer=new Consumer();
         consumer.init("node1:9092","liu");
-        consumer.receive2("user_out4");
+        consumer.receive2("userViewOut");
 
     	}
 }

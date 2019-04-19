@@ -3,6 +3,8 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import serializable.liu.UserStateJsonDeserializer;
+import stream.join.JoinDeserializer;
+import stream.join.UserView;
 import stream.liu.domain.User;
 import stream.liu.domain.UserState;
 
@@ -29,7 +31,8 @@ public class Consumer {
             properties.setProperty("group.id", groupId);
             // 设置序列化格式
             properties.setProperty("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-            properties.setProperty("value.deserializer", UserStateJsonDeserializer.class.getName());
+            JoinDeserializer<UserView> joinDeserializer=new JoinDeserializer<>();
+            properties.setProperty("value.deserializer", joinDeserializer.getClass().getName());
             // When a group is first created, it has no offset stored to start reading from. This tells it to start
             // with the earliest record in the stream.
             //设置读取队列的偏移位
@@ -65,18 +68,18 @@ public class Consumer {
 
 
     public void receive2(String topicName){
-        KafkaConsumer<String,UserState> consumer=new KafkaConsumer<>(properties);
+        KafkaConsumer<String,UserView> consumer=new KafkaConsumer<>(properties);
         consumer.subscribe(Arrays.asList(topicName));
         //consumer.assign(Arrays.asList(new TopicPartition(topicName,2)));
         while (true) {
-            ConsumerRecords<String, UserState> records = consumer.poll(Duration.ofSeconds(1));
+            ConsumerRecords<String, UserView> records = consumer.poll(Duration.ofSeconds(1));
             if (records.count()==0){
                 continue;
             }
-            for (ConsumerRecord<String, UserState> record : records) {
+            for (ConsumerRecord<String, UserView> record : records) {
                 //System.out.println("分区为 " + record.partition());
                 System.out.println("键的值位 " + record.key());
-                System.out.println(record.value().getViewCount());
+                System.out.println(record.value());
                 //System.out.println(" "+record.value().getView());
                 //System.out.println("   值为 " + record.value().getViewCount());
 
