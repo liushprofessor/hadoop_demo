@@ -1,3 +1,5 @@
+import org.apache.hadoop.hive.hbase.HBaseStorageHandler;
+import org.apache.hadoop.hive.serde2.RegexSerDe;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +42,7 @@ public class HiveTest {
         String sql = "create database hive_jdbc_test";
         System.out.println("Running: " + sql);
         stmt.execute(sql);
+
     }
 
     // 查询所有数据库
@@ -137,7 +140,7 @@ public class HiveTest {
 
     // 删除数据库表
     @Test
-    public void deopTable() throws Exception {
+    public void dropTable() throws Exception {
         String sql = "drop table if exists emp";
         System.out.println("Running: " + sql);
         stmt.execute(sql);

@@ -15,6 +15,7 @@
         <module>hbase_demo</module>
         <module>spark</module>
         <module>kafka</module>
+        <module>integration</module>
     </modules>
 
     <!-- 配置远程仓库 -->
