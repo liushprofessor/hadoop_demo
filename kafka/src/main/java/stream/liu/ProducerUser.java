@@ -68,7 +68,7 @@ public class ProducerUser {
         // 上述方法可以选择将数据发送的分区
         Gson gson=new Gson();
         KafkaProducer<String,String> producer=new KafkaProducer<>(properties);
-        RecordMetadata recordMetadata =producer.send(new ProducerRecord<String,String>(topicName,0,key,gson.toJson(value))).get();
+        RecordMetadata recordMetadata =producer.send(new ProducerRecord<String,String>(topicName,key,gson.toJson(value))).get();
         System.out.println("分区是 "+recordMetadata.partition());
         System.out.println("topic是 "+recordMetadata.topic());
         System.out.println("key是"+ recordMetadata.serializedKeySize());
@@ -80,7 +80,7 @@ public class ProducerUser {
         // 上述方法可以选择将数据发送的分区
         Gson gson=new Gson();
         KafkaProducer<String,String> producer=new KafkaProducer<>(properties);
-        RecordMetadata recordMetadata =producer.send(new ProducerRecord<>(topicName,0,key,gson.toJson(value))).get();
+        RecordMetadata recordMetadata =producer.send(new ProducerRecord<>(topicName,key,gson.toJson(value))).get();
         System.out.println("分区是 "+recordMetadata.partition());
         System.out.println("topic是 "+recordMetadata.topic());
         System.out.println("key是"+ recordMetadata.serializedKeySize());

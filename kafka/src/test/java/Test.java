@@ -37,7 +37,7 @@ public class Test {
         UserInfo userInfo=new UserInfo();
         userInfo.setUserID("1");
         userInfo.setUserName("周润发");
-        producerUser.send("userInfo","1",userInfo);
+        producerUser.send("userInfo","2",userInfo);
 
     }
 
@@ -48,7 +48,7 @@ public class Test {
         ViewInfo viewInfo=new ViewInfo();
         viewInfo.setPageName("百度");
         viewInfo.setUrl("www.baidu.com");
-        producerUser.send("userView","1",viewInfo);
+        producerUser.send("userView","3",viewInfo);
 
     }
 
