@@ -20,6 +20,8 @@ public class JsonSerializer<T> implements Serializer<T> {
     @Override
     public void configure(Map map, boolean b) {
 
+
+
     }
 
     @Override
@@ -27,10 +29,7 @@ public class JsonSerializer<T> implements Serializer<T> {
         return gson.toJson(t).getBytes(Charset.forName("UTF-8"));
     }
 
-    @Override
-    public byte[] serialize(String topic, Headers headers, Object data) {
-        return new byte[0];
-    }
+
 
     @Override
     public void close() {

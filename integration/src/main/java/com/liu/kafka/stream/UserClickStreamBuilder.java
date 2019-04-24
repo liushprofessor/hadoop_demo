@@ -9,6 +9,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.Serializer;
+import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
@@ -45,6 +46,13 @@ public class UserClickStreamBuilder {
         KStream<String, UserClick> clickKStream=buildClick();
         KStream<String, UserClick> userClickStream=buildUserClick(clickKStream,userTable);
         sendToTopic("user_click_demo",userClickStream);
+        startStream();
+    }
+
+    //根据扩扑图开启流程
+    private void startStream() {
+        KafkaStreams streams = new KafkaStreams(builder.build(), props);
+        streams.start();
     }
 
 
@@ -57,7 +65,7 @@ public class UserClickStreamBuilder {
 
 
     public KStream<String, UserClick> buildUserClick(KStream<String, UserClick> stream, KTable<String, User> table) {
-        return stream.leftJoin(table,
+        KStream<String, UserClick> userClickKStream= stream.leftJoin(table,
                 (userClick, user) -> {
                     userClick.setUserName(user.getUserName());
                     return userClick;
@@ -65,14 +73,19 @@ public class UserClickStreamBuilder {
                 Joined.with(Serdes.String(), new UserClickSerd(), new UserSerd())
 
         );
+        userClickKStream.foreach((k,v)->{
+            System.out.println("流key。。。"+k);
+            System.out.println("流value。。。"+v.getUserName());
 
+        });
+        return  userClickKStream;
     }
 
 
     private KStream<String, UserClick> buildClick() {
         KStream<String, Click> stream = builder.stream("click_demo", Consumed.with(Serdes.String(), new ClickSerd()));
         UserClick userClick = new UserClick();
-        return stream.groupByKey().windowedBy(TimeWindows.of(5000).advanceBy(1000)).
+        return stream.groupByKey().windowedBy(TimeWindows.of(10000).advanceBy(1000)).
                 aggregate(() -> userClick, (key, value, click) ->
                                 click.add(value),
                         Materialized.with(Serdes.String(), new UserClickSerd())

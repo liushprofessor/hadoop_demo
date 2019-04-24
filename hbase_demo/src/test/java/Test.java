@@ -5,7 +5,10 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.codehaus.jackson.map.ObjectReader;
 import org.junit.Before;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 /**
  * @author Liush
@@ -30,7 +33,7 @@ public class Test {
 
     @org.junit.Test
     public void  createTable()throws Exception{
-        TableName tableName=TableName.valueOf("user2");
+        TableName tableName=TableName.valueOf("user3");
         HTableDescriptor descriptor=new HTableDescriptor(tableName);
         HColumnDescriptor colum=new HColumnDescriptor("data");
         descriptor.addFamily(colum);
@@ -39,7 +42,6 @@ public class Test {
         for (HTableDescriptor descriptor1:descriptors) {
             System.out.println(descriptor1.getTableName());
         }
-
     }
 
     @org.junit.Test

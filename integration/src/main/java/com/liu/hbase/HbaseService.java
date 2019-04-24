@@ -21,7 +21,7 @@ public class HbaseService {
     private Configuration configuration;
 
 
-    public void HbaseService()throws Exception{
+    public  HbaseService()throws Exception{
 
         configuration= HBaseConfiguration.create();
         configuration.set("hbase.zookeeper.quorum","192.168.1.10");
@@ -45,15 +45,15 @@ public class HbaseService {
     }
 
 
-    public void put(String row,String columnFamily,String qualifier,String value)throws Exception{
-        HTable hTable=new HTable(configuration,"test2");
-        byte[] rowByte= Bytes.toBytes(row);
-        byte[] columnFamilyByte=Bytes.toBytes(columnFamily);
-        byte[] qualifierByte=Bytes.toBytes(qualifier);
-        byte[] valueByte=Bytes.toBytes(value);
-        Put put=new Put(rowByte);
-        put.addColumn(columnFamilyByte,qualifierByte,valueByte);
-        hTable.put(put);
+    public void put(String tableName,String row,String columnFamily,String qualifier,String value)throws Exception{
+            HTable hTable=new HTable(configuration,tableName);
+            byte[] rowByte= Bytes.toBytes(row);
+            byte[] columnFamilyByte=Bytes.toBytes(columnFamily);
+            byte[] qualifierByte=Bytes.toBytes(qualifier);
+            byte[] valueByte=Bytes.toBytes(value);
+            Put put=new Put(rowByte);
+            put.addColumn(columnFamilyByte,qualifierByte,valueByte);
+            hTable.put(put);
 
     }
 

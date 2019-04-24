@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author Liush
@@ -22,8 +23,16 @@ public class JsonDeserializer<T> implements Deserializer<T> {
         this.tClass = tClass;
     }
 
-    @Override
+    public JsonDeserializer() {
+
+    }
+
+    @Override 
+    @SuppressWarnings("unchecked")
     public void configure(Map<String, ?> map, boolean b) {
+        if(tClass == null) {
+            tClass = (Class<T>) map.get("deserializer.class");
+        }
 
     }
 
