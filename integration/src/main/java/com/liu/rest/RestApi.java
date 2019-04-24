@@ -24,8 +24,12 @@ import java.util.List;
 public class RestApi {
 
 
-
-
+    /**
+     * 点击事件，将点击事件传入kafka topic，为了后续将用户流和点击流进行连接，得到一个流即包含该用户信息也包含用户点击信息
+     * @param click
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("click")
     public String click(Click click)throws Exception{
         Producer<Click> producer=new Producer<>("node1:9092");
@@ -34,7 +38,12 @@ public class RestApi {
 
     }
 
-
+    /**
+     * 用户注册，将用户提交的信息放入kafka队列，后续由消费者进行消费
+     * @param user
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("register")
     public String register(User user)throws Exception{
         HbaseProducer<User> producer=new HbaseProducer<>();
@@ -42,6 +51,10 @@ public class RestApi {
         return "success";
     }
 
+    /**
+     * 开启注册用户的消费者接口，开启新线程订阅注册用户生产者，循环遍历
+     * @return
+     */
     @RequestMapping("startHbaseConsumer")
     public String startHbaseConsumer(){
 
@@ -51,7 +64,12 @@ public class RestApi {
     }
 
 
-
+    /**
+     * hive 离线分析，根据用户名离线查找用户对象
+     * @param name
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("getUser")
     public List<User> getUser(String name)throws Exception{
 
@@ -70,7 +88,10 @@ public class RestApi {
     }
 
 
-
+    /**
+     * 开启流分析，将用户点击事件和用户事件进行连接，得到即有用户信息又有点击事件的流
+     * @return
+     */
     @RequestMapping("startStream")
     public String startStream(){
 

@@ -76,6 +76,10 @@ public class UserClickStreamBuilder {
         userClickKStream.foreach((k,v)->{
             System.out.println("流key。。。"+k);
             System.out.println("流value。。。"+v.getUserName());
+            for (Click click:v.getClicks()){
+                    System.out.println(click.getClickName());
+
+            }
 
         });
         return  userClickKStream;
