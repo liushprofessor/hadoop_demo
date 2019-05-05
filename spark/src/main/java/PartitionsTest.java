@@ -1,3 +1,5 @@
+import org.apache.spark.HashPartitioner;
+import org.apache.spark.Partitioner;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -25,7 +27,7 @@ public class PartitionsTest implements Serializable {
         sparkConf.setMaster("spark://192.168.1.10:7077");
         JavaSparkContext sc = new JavaSparkContext("local", "Test", sparkConf);
         JavaRDD<String> lines = sc.textFile("hdfs://192.168.1.10:9000/cat", 1);
-        //JavaRDD<String> javaRDD = lines.coalesce(1); 设置运行分区，reduceByKey（聚合）后执行的任务的分区
+        JavaRDD<String> javaRDD = lines.coalesce(3); //设置运行分区，reduceByKey（聚合）后执行的任务的分区
         JavaPairRDD<String, Integer> pairRDD = lines.mapToPair(new PairFunction<String, String, Integer>() {
             @Override
             public Tuple2<String, Integer> call(String s) throws Exception {
@@ -33,7 +35,8 @@ public class PartitionsTest implements Serializable {
                 return new Tuple2<>(array[0], Integer.valueOf(array[1]));
             }
         });
-        //将多个文件聚合
+        //pairRDD.partitionBy(new HashPartitioner(2));
+        //发生shuffle，集合文件
         JavaPairRDD<String, Integer> pairRDD2=pairRDD.reduceByKey(new Function2<Integer, Integer, Integer>() {
             @Override
             public Integer call(Integer integer, Integer integer2) throws Exception {
@@ -41,7 +44,8 @@ public class PartitionsTest implements Serializable {
             }
         });
 
-        pairRDD2.saveAsTextFile("C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\liu\\spark25");
+
+        pairRDD2.saveAsTextFile("C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\liu\\spark30");
 
 
 
