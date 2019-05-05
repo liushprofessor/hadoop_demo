@@ -10,6 +10,8 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
+import org.apache.spark.api.java.function.Function2;
+import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
 import org.junit.Before;
 import scala.Tuple2;
@@ -93,7 +95,7 @@ public class Test implements Serializable {
                 return null;
             }
         });*/
-        javaPairRdd.foreach(new VoidImple());
+        //javaPairRdd.foreach(new VoidImple());
         javaPairRdd.saveAsTextFile("C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\liu\\spark9");
     }
 
@@ -119,5 +121,31 @@ public class Test implements Serializable {
         System.out.println(b.hashCode());
 
     }
+
+    @org.junit.Test
+    public void partitionsTest(){
+        SparkConf sparkConf=new SparkConf();
+        sparkConf.setAppName("Liush的测试程序");
+        sparkConf.setMaster("spark://192.168.1.10:7077");
+        JavaSparkContext sc=new JavaSparkContext("local","Test",sparkConf);
+        JavaRDD<String> lines=sc.textFile("hdfs://192.168.1.10:9000/cat");
+        lines.coalesce(6);
+        JavaPairRDD<String,String> pairRDD=lines.mapToPair(new PairFunction<String, String, String>() {
+            @Override
+            public Tuple2<String, String> call(String s) throws Exception {
+                    String[] array=s.split(",");
+                return new Tuple2<>(array[0],array[1]);
+            }
+        });
+        pairRDD.reduceByKey(new Function2<String, String, String>() {
+            @Override
+            public String call(String s, String s2) throws Exception {
+                return s+"."+s2;
+            }
+        });
+
+        pairRDD.saveAsTextFile("C:\\Users\\Administrator\\Desktop\\新建文件夹 (2)\\liu\\spark10");
+    }
+
 
 }
