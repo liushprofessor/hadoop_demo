@@ -47,7 +47,7 @@ public class ReadTest {
     @Test
     public void readFromFileSystem()throws Exception{
 
-        String uri="hdfs://192.168.1.10:9000/user/root/liu.txt";
+        String uri="hdfs://192.168.1.10:9000/sparktest.txt";
         Configuration configuration=new Configuration();
         FileSystem fileSystem=FileSystem.get(URI.create(uri),configuration);
         InputStream in=fileSystem.open(new Path(uri));

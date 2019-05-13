@@ -24,7 +24,7 @@ public class PartitionsTest implements Serializable {
     public static void main(String[] args) {
         SparkConf sparkConf = new SparkConf();
         sparkConf.setAppName("Liush的测试程序");
-        sparkConf.setMaster("spark://192.168.1.10:7077");
+        //sparkConf.setMaster("spark://192.168.1.10:7077");
         JavaSparkContext sc = new JavaSparkContext("local", "Test", sparkConf);
         JavaRDD<String> lines = sc.textFile("hdfs://192.168.1.10:9000/cat", 1);
         JavaRDD<String> javaRDD = lines.coalesce(3); //设置运行分区，reduceByKey（聚合）后执行的任务的分区
