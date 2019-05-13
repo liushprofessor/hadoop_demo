@@ -24,7 +24,8 @@ public class PartitionsTest implements Serializable {
     public static void main(String[] args) {
         SparkConf sparkConf = new SparkConf();
         sparkConf.setAppName("Liush的测试程序");
-        //sparkConf.setMaster("spark://192.168.1.10:7077");  在IDE中是已local模式运行的Driver和executor都在一个jvm中运行
+        //sparkConf.setMaster("spark://192.168.1.10:7077"); 如果不设置的话 在IDE中是已local模式运行的Driver和executor都在一个jvm中运行
+        //如果设置的话是已独立模式运行由一个master生成多个executor进程
         JavaSparkContext sc = new JavaSparkContext("local", "Test", sparkConf);
         JavaRDD<String> lines = sc.textFile("hdfs://192.168.1.10:9000/cat", 1);
         JavaRDD<String> javaRDD = lines.coalesce(3); //设置运行分区，reduceByKey（聚合）后执行的任务的分区
