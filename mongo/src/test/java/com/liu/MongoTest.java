@@ -1,5 +1,6 @@
 package com.liu;
 
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,25 @@ public class MongoTest {
     }
 
 
+    @Test
+    public void searchDto(){
+
+        List<CustomerDto> list=repository.findAllBy();
+        System.out.println(list);
+    }
+
+    @Test
+    public void searchProject(){
+        Customer customer=repository.findProjectedByFirstname("Dave",Customer.class);
+        System.out.println(customer);
+    }
+
+
+    @Test
+    public void searchCustomerById(){
+        Customer customer=repository.findCustimerById(new ObjectId("5cdbbc016aec3127c00a75d7"));
+        System.out.println(customer);
+    }
 
 
 

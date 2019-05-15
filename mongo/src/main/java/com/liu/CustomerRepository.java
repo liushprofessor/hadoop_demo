@@ -57,11 +57,14 @@ interface CustomerRepository extends CrudRepository<Customer, ObjectId> {
 }
 ;*/
 
-
+    //且查询
     List<Customer> findByLastnameAndFirstname(String lastname,String firstName);
+
 
     //查询lastname根据first升序排序
     List<Customer> findByLastnameOrderByFirstnameAsc(String lastname);
+
+
     //查询lastname根据first降序排序
     List<Customer> findByLastnameOrderByFirstnameDesc(String lastname);
 
@@ -69,12 +72,32 @@ interface CustomerRepository extends CrudRepository<Customer, ObjectId> {
     Page<Customer> findPagedBy(Pageable pageable);
 
 
+
+
+    /**
+     * 将查询到的结果转换成dto
+     * @return
+     */
+    List<CustomerDto> findAllBy();
+
+    //根据ID查找对象
+    Customer findCustimerById(ObjectId id);
+
+
+
+
+
+
+
+
+
+
     /**
      * Dynamic projection for a single entity.
-     * 动态查询
+     * 动态查询 根据传入的class生成对象
      * @param id
      * @param projection
      * @return
      */
-    <T> T findProjectedById(ObjectId id, Class<T> projection);
+    <T> T findProjectedByFirstname(String firstName, Class<T> projection);
 }
