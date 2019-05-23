@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * Sample repository managing customers to show projecting functionality of Spring Data MongoDB.
- *
+ *  具体Springdata例子可查看activti6 的activiti-web-app工程
  * @author Oliver Gierke
  */
 interface CustomerRepository extends CrudRepository<Customer, ObjectId> {
