@@ -18,6 +18,7 @@
         <module>integration</module>
         <module>mongo</module>
         <module>mybatis</module>
+        <module>Spring</module>
     </modules>
 
     <!-- 配置远程仓库 -->
