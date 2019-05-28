@@ -27,6 +27,14 @@ public class Test {
 
     }
 
+    @org.junit.Test
+    public void searchUsers2(){
+        List<User> users=searchUserI.searchUsers2("1");
+        System.out.println(users);
+
+
+    }
+
 
 
 
