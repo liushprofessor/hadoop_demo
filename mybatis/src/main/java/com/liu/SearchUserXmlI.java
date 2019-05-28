@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author Liush
- * @description  对应的xml要放在resources对应的包下
+ * @description  对应的xml要放在resources对应的包下，加上Mapper注解或者用MapperScan扫描
  * @date 2019/5/28 9:47
  **/
 @Mapper
