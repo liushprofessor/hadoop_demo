@@ -19,6 +19,9 @@ public class Test {
     @Autowired
     private SearchUserI searchUserI;
 
+    @Autowired
+    private SearchUserXmlI searchUserXmlI;
+
     @org.junit.Test
     public void searchUsers(){
 
@@ -32,7 +35,13 @@ public class Test {
         List<User> users=searchUserI.searchUsers2("1");
         System.out.println(users);
 
+    }
 
+
+    @org.junit.Test
+    public void searchUserXml(){
+        List<User> users=searchUserXmlI.searchUsers("1");
+        System.out.println(users);
     }
 
 
