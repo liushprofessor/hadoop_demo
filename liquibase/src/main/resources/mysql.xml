@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="1" author="liu">
+        <createTable tableName="t1_user">
+            <column name="id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+
+        <insert tableName="t1_user">
+            <column name="id" value="1"/>
+            <column name="name" value="刘绍煌"/>
+        </insert>
+
+	</changeSet>
+
+    <changeSet id="2" author="liu">
+        <insert tableName="t1_user">
+            <column name="id" value="2"/>
+            <column name="name" value="刘绍煌2"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

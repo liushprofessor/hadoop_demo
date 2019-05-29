@@ -19,6 +19,7 @@
         <module>mongo</module>
         <module>mybatis</module>
         <module>Spring</module>
+        <module>liquibase</module>
     </modules>
 
     <!-- 配置远程仓库 -->
