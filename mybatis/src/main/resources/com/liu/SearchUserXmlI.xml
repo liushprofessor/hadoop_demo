@@ -7,6 +7,22 @@
 	<select id="searchUsers" parameterType="java.lang.String" resultType="com.liu.User">
 		  select id ,name from t_user where id=#{id}
 	</select>
-	
+
+	<resultMap id="rep" type="com.liu.UserRole">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<collection property="role" ofType="java.lang.String" column="id"     foreignColumn="userid" select="searchUserRoles2"/>
+	</resultMap>
+
+	<select id="searchUserRoles" parameterType="java.lang.String" resultMap="rep">
+		select id ,name from t_user where id=#{id}
+	</select>
+
+
+	<select id="searchUserRoles2"  parameterType="java.lang.String" resultType="java.lang.String">
+
+		  SELECT role  from t_role   where userid=#{id}
+	</select>
+
 
 </mapper>
