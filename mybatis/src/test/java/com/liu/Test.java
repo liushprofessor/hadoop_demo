@@ -52,6 +52,13 @@ public class Test {
 
     }
 
+    //联合结果查询
+    @org.junit.Test
+    public void searchUserRoles3(){
+        List<UserRole> users=searchUserXmlI.searchUserRoles3("1");
+        System.out.println(users);
+    }
+
 
 
 

@@ -19,4 +19,7 @@ public interface SearchUserXmlI {
     //联合查询
     List<UserRole> searchUserRoles(String id);
 
+    //结果联合查询
+    List<UserRole> searchUserRoles3(String id);
+
 }
