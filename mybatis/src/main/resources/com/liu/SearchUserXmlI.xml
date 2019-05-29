@@ -9,7 +9,7 @@
 	</select>
 
 
-	<!--集合嵌套Select查询 -->
+	<!--集合嵌套Select查询  ofType为输入类型也就是集合中的泛型 property为java中的字段  foreignColumn为关联的外检，一般用联合结果查询效率更高-->
 	<resultMap id="rep" type="com.liu.UserRole">
 		<result column="id" property="id"/>
 		<result column="name" property="name"/>
@@ -27,7 +27,7 @@
 	</select>
 
 
-<!-- 集合的嵌套结果查询-->
+<!-- 集合的嵌套结果查询  ofType为输入类型也就是集合中的泛型 property为java中的字段 -->
 	<resultMap id="rep2" type="com.liu.UserRole">
 		<result column="id" property="id"/>
 		<result column="name" property="name"/>
