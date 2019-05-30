@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+    <!---->
 	<changeSet id="1" author="liu">
         <createTable tableName="t1_user">
             <column name="id" type="varchar(255)">
@@ -25,5 +26,9 @@
             <column name="name" value="刘绍煌2"/>
         </insert>
     </changeSet>
+
+
+
+
 
 </databaseChangeLog>
