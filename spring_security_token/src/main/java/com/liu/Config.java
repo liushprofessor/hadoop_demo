@@ -26,7 +26,7 @@ import java.util.List;
 public class Config extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyUserDetailService myMataDataSource;
+    private MyUserDetailService myUserDetailService;
 
 
 
@@ -37,8 +37,9 @@ public class Config extends WebSecurityConfigurerAdapter {
 
     @Autowired
    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)throws Exception{
-        authenticationManagerBuilder.userDetailsService(myMataDataSource).
+        authenticationManagerBuilder.userDetailsService(myUserDetailService).
                 passwordEncoder(NoOpPasswordEncoder.getInstance());
+        authenticationManagerBuilder.authenticationProvider(new MyProvider());
 
 
    }
@@ -52,7 +53,7 @@ public class Config extends WebSecurityConfigurerAdapter {
     @Bean
     public MyFilter myFilter()throws Exception {
         //新建过滤器
-        MyFilter filter=new MyFilter();
+        MyFilter filter=new MyFilter("/login2");
         filter.setAuthenticationManager(authenticationManager());
         return filter;
         /*DynamicallyUrlInterceptor interceptor = new DynamicallyUrlInterceptor();
@@ -74,7 +75,7 @@ public class Config extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterAfter(myFilter(), UsernamePasswordAuthenticationFilter.class).//添加自定义的过滤器
+        http.addFilterBefore(myFilter(), UsernamePasswordAuthenticationFilter.class).//添加自定义的过滤器
                 csrf().disable()//关闭跨域验证
                 .authorizeRequests()
                     .antMatchers("/login.html","/login2").permitAll()

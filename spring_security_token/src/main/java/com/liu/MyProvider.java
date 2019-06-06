@@ -10,6 +10,9 @@ import org.springframework.security.core.AuthenticationException;
  * @date 2019/6/6 15:56
  **/
 public class MyProvider implements AuthenticationProvider {
+
+
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 

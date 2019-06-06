@@ -28,7 +28,7 @@ import java.util.Collections;
 public class MyFilter extends AbstractAuthenticationProcessingFilter {
 
 
-    private AuthenticationManager authenticationManager;
+
 
     protected MyFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
@@ -41,21 +41,16 @@ public class MyFilter extends AbstractAuthenticationProcessingFilter {
         String token=httpServletRequest.getHeader("t_token");
         if(token==null || "".equals(token.trim())){
             httpServletResponse.sendError(403,"找不到token");
+            return null;
         }
         String[] tokens=token.split(",");
         String username=tokens[0];
         String role=tokens[1];
         GrantedAuthority grantedAuthority=new SimpleGrantedAuthority(role);
         MyToken myToken=new MyToken(Arrays.asList(grantedAuthority),username,"123");
-        Authentication authentication =authenticationManager.authenticate(myToken);
+        Authentication authentication =getAuthenticationManager().authenticate(myToken);
         return authentication;
     }
 
-    public AuthenticationManager getAuthenticationManager() {
-        return authenticationManager;
-    }
 
-    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
 }
