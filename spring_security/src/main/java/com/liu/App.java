@@ -30,6 +30,10 @@ import org.springframework.web.filter.GenericFilterBean;
 /**
  * @author Liush
  * @description  动态加载权限url，实现从数据库获取url并鉴权，这部分主要实现的是鉴权部分的过滤器
+ * //.access("@permissionChecker.hasPermission(authentication,request)")
+ * 可以采用这种方法更加简单，@permissionChecker为Spring中注入的类，hasPermission(authentication,request)
+ * access（@permissionChecker.checkUserId(authentication,#userId)） 在userid是变量的情况下
+ * 为方法和参数
  * @date 2019/5/30 13:50
  **/
 @SpringBootApplication
