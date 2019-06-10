@@ -38,6 +38,7 @@ public class MyFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
 
+
         String token=httpServletRequest.getHeader("t_token");
         if(token==null || "".equals(token.trim())){
             httpServletResponse.sendError(403,"找不到token");

@@ -21,19 +21,19 @@ import java.util.List;
  * @description  从数据库读取动态读取url信息
  * @date 2019/6/4 14:28
  **/
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class Config extends WebSecurityConfigurerAdapter {
-
+/*
     @Autowired
     private MyUserDetailService myUserDetailService;
 
 
 
-    /**
+    *//**
      * 在SpringSecuritity中需要对密码进行编码
      * 所有的编码方式在PasswordEncoderFactories中，下面设置的是没有编码格式
-     */
+     *//*
 
     @Autowired
    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)throws Exception{
@@ -46,17 +46,17 @@ public class Config extends WebSecurityConfigurerAdapter {
 
 
 
-    /*
+    *//*
      * 创建我的自定义的url的interceptor
      * z
-     */
+     *//*
     @Bean
     public MyFilter myFilter()throws Exception {
         //新建过滤器
         MyFilter filter=new MyFilter("/login2");
         filter.setAuthenticationManager(authenticationManager());
         return filter;
-        /*DynamicallyUrlInterceptor interceptor = new DynamicallyUrlInterceptor();
+        *//*DynamicallyUrlInterceptor interceptor = new DynamicallyUrlInterceptor();
         interceptor.setSecurityMetadataSource(myMataDataSource);//设置授权验证数据的来源，这里是从数据库中读取授权
 
         //配置RoleVoter决策，这里使用的是角色投票者（角色钱加ROLE_），框架中之所以这样定义是因为，SpringSecurity
@@ -65,14 +65,14 @@ public class Config extends WebSecurityConfigurerAdapter {
         decisionVoters.add(new RoleVoter());
         //设置认证决策管理器，主要设置投票范式，也就是鉴权时候已经什么前置开头，主要是为了对不同url进行不同方式鉴权而设定，提高效率一般用默认的RoleVoter即可（ROLE_）
         interceptor.setAccessDecisionManager(new DynamicallyUrlAccessDecisionManager(decisionVoters));
-        return interceptor;*/
+        return interceptor;*//*
     }
 
-    /**
+    *//**
      * 配置鉴权
      * @param http
      * @throws Exception
-     */
+     *//*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(myFilter(), UsernamePasswordAuthenticationFilter.class).//添加自定义的过滤器
@@ -87,5 +87,5 @@ public class Config extends WebSecurityConfigurerAdapter {
                 .and()
                      .logout()
                      .permitAll();
-    }
+    }*/
 }

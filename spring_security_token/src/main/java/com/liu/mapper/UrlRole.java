@@ -11,6 +11,8 @@ public class UrlRole {
 
     private String role;
 
+    private String password;
+
     public String getUrl() {
         return url;
     }
@@ -25,5 +27,13 @@ public class UrlRole {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
