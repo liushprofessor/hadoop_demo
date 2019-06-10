@@ -37,14 +37,18 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
                 // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
+                //开启表单验证的话会默认使用表单验证，如果没有认证会自动跳转到登录页
+                //且在过滤器链中在最后会添加UsernamePasswordAuthenticationFilter过滤器
+                //我们这里使用token方式进行认证
+                // .formLogin().and()
                 .authorizeRequests()
 
                 // Un-secure H2 Database
                 //.antMatchers("/h2-console/**/**").permitAll()
 
                 //.antMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated();
+                //自定义鉴权
+                .anyRequest().access("@securityAccess.access(authentication,request)");//authenticated();
 
 
         http.addFilterBefore(jwtAuthorizationTokenFilter,UsernamePasswordAuthenticationFilter.class);
