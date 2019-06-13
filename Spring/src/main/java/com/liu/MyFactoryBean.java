@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 public class MyFactoryBean implements FactoryBean<MyBean> {
 
 
-    @Override
+
     public MyBean getObject() throws Exception {
         return new MyBean("这个是我的bean");
     }
 
-    @Override
+
     public Class<?> getObjectType() {
 
         return MyBean.class;
