@@ -26,6 +26,7 @@ import java.util.List;
  * @author Liush
  * @description  从数据库读取动态读取url信息
  * //.access("@permissionChecker.hasPermission(authentication,request)")这种方法更简单
+ * 这种方法原理现在代码中实现的一样，只是他在设置FilterInvocationSecurityMetadataSource时换成Spring表达式去获取元数据
  * @date 2019/6/4 14:28
  **/
 @Configuration

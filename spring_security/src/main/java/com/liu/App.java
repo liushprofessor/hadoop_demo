@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -56,6 +57,7 @@ public class App {
         AuthenticationManager authenticationManager;
         GenericFilterBean genericFilterBean;
         AbstractAuthenticationProcessingFilter abstractAuthenticationProcessingFilter;
+        ExceptionTranslationFilter exceptionTranslationFilter;
         // AntPathRequestMatcher antPathRequestMatcher;
        // SecurityConfig securityConfig;
         //FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
