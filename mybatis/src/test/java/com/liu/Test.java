@@ -1,5 +1,8 @@
 package com.liu;
 
+import com.liu.transaction.TransactionService;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +21,9 @@ public class Test {
 
     @Autowired
     private SearchUserI searchUserI;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @Autowired
     private SearchUserXmlI searchUserXmlI;
@@ -61,6 +67,32 @@ public class Test {
 
 
 
+    //事务控制
+    @org.junit.Test
+    public void transactionTest(){
+
+        User user=new User();
+        user.setId("6");
+        user.setName("ggg");
+        transactionService.insertUser(user);
+
+    }
+
+    @org.junit.Test
+    public void searchUser() throws InterruptedException {
+        transactionService.searchUser();
+
+    }
+
+    @org.junit.Test
+    public void updateUser(){
+        User user=new User();
+        user.setId("5");
+        user.setName("hh");
+        transactionService.updateUser(user);
+
+
+    }
 
 
 

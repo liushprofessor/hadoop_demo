@@ -1,9 +1,6 @@
 package com.liu;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,5 +18,10 @@ public interface SearchUserI {
     @Select("select id ,name from t_user where id=#{id}")
     List<User> searchUsers2(@Param("id") String id);
 
+    @Insert("insert into t_user(id,name) values(#{id},#{name}) ")
+    void insertUser(User user);
+
+    @Update("update t_user set name=#{name} where id=#{id}")
+    void updateUser(User user);
 
 }
