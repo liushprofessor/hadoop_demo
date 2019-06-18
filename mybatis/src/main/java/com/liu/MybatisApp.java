@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author Liush
  * @description
+ * 一级缓存 会话基本 mybatis对应sqlsession
+ * 二级缓存  应用基本，不同会话也可访问 mybatis对应namespace
+ * 三级缓存  跨jvm 如redis
  * spring事务有四个等级，在mysql inndbn内核中默认采用可重复读（两个事务同时处理一条数据
  * 一个事务更新了，在另一个事务中读取到的仍然是旧的值），mybatis中有一级缓存，如果事务等级低于可重复读
  * 那么再两个事务同时操作一条记录中如（@Transactional( isolation =Isolation.READ_COMMITTED )），一个
