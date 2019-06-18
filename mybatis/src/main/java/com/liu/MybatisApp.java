@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 或者在xml select标签中加上 flushCache="true"读取时刷新缓存，如果采用编码方式则加上@Options(flushCache =Options.FlushCachePolicy.TRUE )
  * 注解读取时刷新mybatis缓存
  * 在Spring中只有同一所中读取数据才能用到一级缓存，因为同一锁中的sqlSession是同一个，两次调用是获取不同的
- * sqlSession所以一级缓存无效
+ * sqlSession所以一级缓存无效,同样因为sqlsession不同所以update也无法对一级缓存进行刷新
  * https://blog.csdn.net/ctwy291314/article/details/81938882
  * @date 2019/5/27 9:52
  **/
