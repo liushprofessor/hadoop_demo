@@ -55,9 +55,14 @@ public class TransactionService {
     //flushCache="true" 刷新mybatis的一级缓存，不然当前事务都会从缓存中读取
     //如果是用编码形式的话加上@Options(flushCache =Options.FlushCachePolicy.TRUE )
     //如SearchUserI中所示
+    //同一事物中一级缓存有效，因为一级缓存作用在sqlsession，同一事物中获取的是同一个sqlsession
     @Transactional( isolation =Isolation.READ_COMMITTED )
     public void updateUser(User user){
+        User user1 = searchUserXml.searchUsers("5");
+        User user2 = searchUserXml.searchUsers("5");
         searchUserXml.updateUser(user);
+        User user3 = searchUserXml.searchUsers("5");
+        System.out.println(user3);
         System.out.println(sqlSession);
         System.out.println(sqlSession.getConfiguration().getLocalCacheScope());
 

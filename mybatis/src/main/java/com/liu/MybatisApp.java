@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 注解读取时刷新mybatis缓存
  * 在Spring中只有同一所中读取数据才能用到一级缓存，因为同一锁中的sqlSession是同一个，两次调用是获取不同的
  * sqlSession所以一级缓存无效,同样因为sqlsession不同所以update也无法对一级缓存进行刷新
+ * 另外尽量不要对mybatis返回的对象进行操作，因为返回的对象是缓存在一级缓存中的，改变对象一级缓存中的对象也会改变
  * https://blog.csdn.net/ctwy291314/article/details/81938882
  * @date 2019/5/27 9:52
  **/
