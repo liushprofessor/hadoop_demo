@@ -74,12 +74,11 @@ public class TransactionService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void findUserOne() throws InterruptedException {
-        while (true) {
             User user = searchUserXml.searchUsers("5");
             System.out.println(user.getName());
             System.out.println(((SqlSessionTemplate) sqlSession));
             Thread.sleep(5000);
-        }
+
 
 
     }

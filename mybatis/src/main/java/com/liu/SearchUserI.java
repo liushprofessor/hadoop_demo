@@ -10,6 +10,7 @@ import java.util.List;
  * @date 2019/5/27 10:04
  **/
 @Mapper
+@CacheNamespace(blocking = true)
 public interface SearchUserI {
 
     @SelectProvider(type = UserSql.class, method = "searchUsers")

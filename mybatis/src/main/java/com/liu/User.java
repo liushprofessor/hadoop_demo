@@ -1,11 +1,13 @@
 package com.liu;
 
+import java.io.Serializable;
+
 /**
  * @author Liush
  * @description
  * @date 2019/5/27 10:09
  **/
-public class User {
+public class User implements Serializable {
 
     private String id;
 
