@@ -59,7 +59,9 @@ public class TransactionService {
     public void updateUser(User user){
         searchUserXml.updateUser(user);
         System.out.println(sqlSession);
-        System.out.println();
+        System.out.println(sqlSession.getConfiguration().getLocalCacheScope());
+
+
         // sqlSession;
         //sqlSession.clearCache();
         //sqlSession.flushStatements();
@@ -67,9 +69,12 @@ public class TransactionService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void findUserOne() throws InterruptedException {
-                User user = searchUserXml.searchUsers("5");
-                System.out.println(user.getName());
-                System.out.println(((SqlSessionTemplate)sqlSession));
+        while (true) {
+            User user = searchUserXml.searchUsers("5");
+            System.out.println(user.getName());
+            System.out.println(((SqlSessionTemplate) sqlSession));
+            Thread.sleep(5000);
+        }
 
 
     }

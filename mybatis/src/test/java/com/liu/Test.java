@@ -82,6 +82,7 @@ public class Test {
     public void searchUser() throws Exception {
         //transactionService.searchUser();
         transactionService.findUserOne();
+       // transactionService.findUserOne();
 
     }
 

@@ -5,7 +5,7 @@
 <mapper  namespace="com.liu.SearchUserXmlI"  >
 
 
-	<select id="searchUsers" parameterType="java.lang.String" resultType="com.liu.User" flushCache="true" >
+	<select id="searchUsers" parameterType="java.lang.String" resultType="com.liu.User" >
 		  select id ,name from t_user where id=#{id}
 	</select>
 
