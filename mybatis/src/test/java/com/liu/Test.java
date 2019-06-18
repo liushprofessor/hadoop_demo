@@ -46,8 +46,8 @@ public class Test {
 
     @org.junit.Test
     public void searchUserXml(){
-        List<User> users=searchUserXmlI.searchUsers("1");
-        System.out.println(users);
+        //List<User> users=searchUserXmlI.searchUsers("1");
+        //System.out.println(users);
     }
 
     //联合查询
@@ -79,17 +79,20 @@ public class Test {
     }
 
     @org.junit.Test
-    public void searchUser() throws InterruptedException {
-        transactionService.searchUser();
+    public void searchUser() throws Exception {
+        //transactionService.searchUser();
+        transactionService.findUserOne();
 
     }
 
     @org.junit.Test
     public void updateUser(){
+
         User user=new User();
         user.setId("5");
-        user.setName("hh");
+        user.setName("wwww");
         transactionService.updateUser(user);
+
 
 
     }

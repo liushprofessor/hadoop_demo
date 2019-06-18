@@ -2,9 +2,10 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.liu.SearchUserXmlI">
+<mapper  namespace="com.liu.SearchUserXmlI"  >
 
-	<select id="searchUsers" parameterType="java.lang.String" resultType="com.liu.User">
+
+	<select id="searchUsers" parameterType="java.lang.String" resultType="com.liu.User" flushCache="true" >
 		  select id ,name from t_user where id=#{id}
 	</select>
 
@@ -37,9 +38,13 @@
 	</resultMap>
 
 
-	<select id="searchUserRoles3" parameterType="java.lang.String" resultMap="rep2">
+	<select id="searchUserRoles3" parameterType="java.lang.String" resultMap="rep2" >
 		SELECT t1.id,t1.name,t2.role from t_user t1,t_role t2 where t1.id=t2.userid
 	</select>
+
+	<update id="updateUser" parameterType="com.liu.User" >
+		update t_user set name=#{name} where id=#{id}
+	</update>
 
 
 </mapper>

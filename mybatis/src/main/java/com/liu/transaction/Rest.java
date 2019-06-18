@@ -19,7 +19,7 @@ public class Rest {
 
     @RequestMapping("findUser")
     public String findUser()throws Exception{
-        transactionService.searchUser();
+        transactionService.findUserOne();
         return null;
     }
 
@@ -27,7 +27,7 @@ public class Rest {
     public String updateUser(){
         User user=new User();
         user.setId("5");
-        user.setName("zz");
+        user.setName("tegwdf");
         transactionService.updateUser(user);
         return null;
     }

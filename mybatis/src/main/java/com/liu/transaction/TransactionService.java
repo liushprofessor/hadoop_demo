@@ -1,8 +1,11 @@
 package com.liu.transaction;
 
 import com.liu.SearchUserI;
+import com.liu.SearchUserXmlI;
 import com.liu.User;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.defaults.DefaultSqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
@@ -22,6 +25,9 @@ public class TransactionService {
     private SearchUserI searchUserI;
 
     @Autowired
+    private SearchUserXmlI searchUserXml;
+
+    @Autowired
     private SqlSession sqlSession;
 
     @Transactional
@@ -33,20 +39,39 @@ public class TransactionService {
 
     }
 
-    @Transactional
+    @Transactional(isolation =Isolation.READ_COMMITTED )
     public void searchUser() throws InterruptedException {
         while (true) {
-            List<User> users=searchUserI.searchUsers("5");
+            List<User> users=searchUserI.searchUsers2("5");
             System.out.println(users.get(0).getName());
             Thread.sleep(5000);
+            System.out.println(sqlSession);
+            //sqlSession.clearCache();
         }
 
     }
 
-    @Transactional
+    //当前事务是READ_COMMITTED,两次读取可以读取到不同值（脏读取），如果需要脏读，则在xml select标签中加入
+    //flushCache="true" 刷新mybatis的一级缓存，不然当前事务都会从缓存中读取
+    //如果是用编码形式的话加上@Options(flushCache =Options.FlushCachePolicy.TRUE )
+    //如SearchUserI中所示
+    @Transactional( isolation =Isolation.READ_COMMITTED )
     public void updateUser(User user){
-        searchUserI.updateUser(user);
-        sqlSession.flushStatements();
+        searchUserXml.updateUser(user);
+        System.out.println(sqlSession);
+        System.out.println();
+        // sqlSession;
+        //sqlSession.clearCache();
+        //sqlSession.flushStatements();
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public void findUserOne() throws InterruptedException {
+                User user = searchUserXml.searchUsers("5");
+                System.out.println(user.getName());
+                System.out.println(((SqlSessionTemplate)sqlSession));
+
+
     }
 
 

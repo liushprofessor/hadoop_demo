@@ -14,12 +14,14 @@ import java.util.List;
 @Mapper
 public interface SearchUserXmlI {
 
-    List<User> searchUsers( String id);
+    User searchUsers( String id);
 
     //联合查询
     List<UserRole> searchUserRoles(String id);
 
     //结果联合查询
     List<UserRole> searchUserRoles3(String id);
+
+    void updateUser(User user);
 
 }
