@@ -22,6 +22,7 @@
         <module>liquibase</module>
         <module>spring_security</module>
         <module>spring_security_token</module>
+        <module>redis</module>
     </modules>
 
     <!-- 配置远程仓库 -->
